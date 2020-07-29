@@ -1,2 +1,2 @@
 # showcase
-A list of use case example of SmartPredict
+A list of example use cases of SmartPredict
