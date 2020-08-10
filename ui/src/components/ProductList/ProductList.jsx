@@ -13,11 +13,12 @@ const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
 const token = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
+  card: {
+    width: "100%",
+    height: 400,
   },
   media: {
-    height: 140,
+    height: 250,
   },
 });
 
@@ -60,11 +61,11 @@ export default function MediaCard() {
   return (
     <Grid container justify="center">
       <Grid item md={8}>
-        <Grid container>
+        <Grid container spacing={1}>
           {products.map((pro) => {
             return (
               <Grid item md={4}>
-                <Card className={classes.root}>
+                <Card className={classes.card}>
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
