@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     height: 250,
   },
 });
-export default function MediaCard({ pro }) {
+export default function MediaCard({ pro, onClick }) {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -34,7 +34,7 @@ export default function MediaCard({ pro }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={onClick}>
           View
         </Button>
       </CardActions>

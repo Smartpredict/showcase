@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Axios from "axios";
 import ProductItem from "./ProductItem/ProductItem";
+import RecDialog from "./RecommandationDialog/RecommandationDialog";
 const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
 const token = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl";
 
@@ -20,6 +21,16 @@ const useStyles = makeStyles({
 export default function MediaCard() {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
+  const [openDiag, setOpenDiag] = useState(false);
+  const openDialog = (item) => {
+    console.log("====================================");
+    console.log("Open dialog");
+    console.log("====================================");
+    setOpenDiag(true);
+  };
+  const closeDialog = (bool) => {
+    setOpenDiag(false);
+  };
 
   useEffect(() => {
     Axios.post(API_URL, {
@@ -60,12 +71,13 @@ export default function MediaCard() {
           {products.map((pro) => {
             return (
               <Grid item md={4}>
-                <ProductItem pro={pro} />
+                <ProductItem pro={pro} onClick={openDialog} />
               </Grid>
             );
           })}
         </Grid>
       </Grid>
+      <RecDialog open={openDiag} setOpen={closeDialog} />
     </Grid>
   );
 }
