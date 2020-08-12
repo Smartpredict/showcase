@@ -6,7 +6,7 @@ import Axios from "axios";
 import ProductItem from "./ProductItem/ProductItem";
 import RecDialog from "./RecommandationDialog/RecommandationDialog";
 const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
-const token = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl";
+const token = process.env.PRODUCT_LIST_API_TOKEN;
 
 const useStyles = makeStyles({
   card: {
@@ -22,11 +22,10 @@ export default function MediaCard() {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [openDiag, setOpenDiag] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
   const openDialog = (item) => {
-    console.log("====================================");
-    console.log("Open dialog");
-    console.log("====================================");
     setOpenDiag(true);
+    setSelectedProduct(item);
   };
   const closeDialog = (bool) => {
     setOpenDiag(false);
@@ -58,9 +57,7 @@ export default function MediaCard() {
         setProducts(result);
       })
       .catch((error) => {
-        console.log("====================================");
-        console.log("Error", error);
-        console.log("====================================");
+        console.error(error);
       });
   }, []);
 
@@ -71,13 +68,25 @@ export default function MediaCard() {
           {products.map((pro) => {
             return (
               <Grid item md={4}>
-                <ProductItem pro={pro} onClick={openDialog} />
+                <ProductItem
+                  pro={pro}
+                  key={pro.id}
+                  onClick={() => {
+                    openDialog(pro);
+                  }}
+                />
               </Grid>
             );
           })}
         </Grid>
       </Grid>
-      <RecDialog open={openDiag} setOpen={closeDialog} />
+      {openDiag && selectedProduct && selectedProduct.id && (
+        <RecDialog
+          open={openDiag}
+          setOpen={closeDialog}
+          selectedProduct={selectedProduct}
+        />
+      )}
     </Grid>
   );
 }

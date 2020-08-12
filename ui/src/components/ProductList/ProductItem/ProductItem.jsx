@@ -28,7 +28,7 @@ export default function MediaCard({ pro, onClick }) {
           title={pro.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="subtitle1">
             {pro.name}
           </Typography>
         </CardContent>
