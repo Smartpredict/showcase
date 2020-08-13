@@ -13,7 +13,7 @@ import { Box, Grid, LinearProgress } from "@material-ui/core";
 import ProductItem from "../ProductItem/ProductItem";
 
 const API_URL = "https://api.smartpredict.ai/services/5f33a91c289149c1f569b364";
-const token = process.env.PRODUCT_SIM_API_TOKEN;
+const token = "SP_API_TOKEN";
 
 const styles = (theme) => ({
   root: {
@@ -65,7 +65,6 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("use affect ===>", selectedProduct);
     if (selectedProduct && selectedProduct.id) {
       Axios.post(API_URL, {
         input: {
@@ -93,17 +92,12 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
           setProducts(result);
         })
         .catch((error) => {
-          console.log("====================================");
           console.log("Error", error);
-          console.log("====================================");
           setLoading(false);
         });
     }
   }, []);
 
-  console.log("====================================");
-  console.log("REsult similar", products);
-  console.log("====================================");
   const handleClose = () => {
     setOpen(false);
   };
@@ -116,12 +110,9 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
         open={open}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          Similar product
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Selected product ({selectedProduct.id})
-          </Typography>
           <Box>
             <ProductItem pro={selectedProduct} />
           </Box>

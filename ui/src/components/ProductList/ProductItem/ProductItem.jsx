@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   card: {
     width: "100%",
     height: 400,
+    paddingBottom: 8,
   },
   media: {
     height: 250,
@@ -29,7 +30,7 @@ export default function MediaCard({ pro, onClick }) {
         />
         <CardContent>
           <Typography gutterBottom variant="subtitle1">
-            {pro.name}
+            {pro.name} - {pro.price} $
           </Typography>
         </CardContent>
       </CardActionArea>
