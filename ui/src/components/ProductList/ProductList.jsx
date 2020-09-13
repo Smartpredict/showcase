@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Axios from "axios";
 import ProductItem from "./ProductItem/ProductItem";
 import RecDialog from "./RecommandationDialog/RecommandationDialog";
+import LinearProgress from "@material-ui/core/LinearProgress";
 const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
 const publicKey = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl"; // process.env.PRODUCT_LIST_API_TOKEN;
 
@@ -63,7 +64,10 @@ export default function MediaCard() {
 
   return (
     <Grid container justify="center">
-      <Grid item md={8}>
+      {!products.length || products.length === 0 ? (
+        <LinearProgress variant="indeterminate" />
+      ) : null}
+      <Grid item md={12}>
         <Grid container spacing={1}>
           {products.map((pro) => {
             return (
