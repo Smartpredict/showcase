@@ -6,7 +6,7 @@ import Axios from "axios";
 import ProductItem from "./ProductItem/ProductItem";
 import RecDialog from "./RecommandationDialog/RecommandationDialog";
 const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
-const token = process.env.PRODUCT_LIST_API_TOKEN;
+const publicKey = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl"; // process.env.PRODUCT_LIST_API_TOKEN;
 
 const useStyles = makeStyles({
   card: {
@@ -36,7 +36,7 @@ export default function MediaCard() {
       input: {
         data: { first: 1, last: 10 },
       },
-      access_token: token,
+      access_token: publicKey,
     })
       .then(({ data }) => {
         let result = data && data.output ? JSON.parse(data.output) : [];

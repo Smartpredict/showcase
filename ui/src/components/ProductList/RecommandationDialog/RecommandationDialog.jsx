@@ -12,8 +12,8 @@ import Axios from "axios";
 import { Box, Grid, LinearProgress } from "@material-ui/core";
 import ProductItem from "../ProductItem/ProductItem";
 
-const API_URL = "https://api.smartpredict.ai/services/5f33a91c289149c1f569b364";
-const token = process.env.PRODUCT_SIM_API_TOKEN;
+const API_URL = "https://api.smartpredict.ai/services/5f1fc3d5289149c1f569b233";
+const publicKey = "NjEzYWU0NDktZWQyOS00NmIzLWExZGQtYzE1MDUyMGEwNWUw";
 
 const styles = (theme) => ({
   root: {
@@ -25,6 +25,9 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+  dialog: {
+    width: "60%",
   },
 });
 
@@ -65,13 +68,12 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("use affect ===>", selectedProduct);
     if (selectedProduct && selectedProduct.id) {
       Axios.post(API_URL, {
         input: {
           data: { productId: selectedProduct.id },
         },
-        access_token: token,
+        access_token: publicKey,
       })
         .then(({ data }) => {
           let result = data && data.output ? JSON.parse(data.output) : [];
@@ -93,17 +95,12 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
           setProducts(result);
         })
         .catch((error) => {
-          console.log("====================================");
           console.log("Error", error);
-          console.log("====================================");
           setLoading(false);
         });
     }
   }, []);
 
-  console.log("====================================");
-  console.log("REsult similar", products);
-  console.log("====================================");
   const handleClose = () => {
     setOpen(false);
   };
@@ -114,14 +111,12 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        // className={classes.dialog}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          Similar product
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Selected product ({selectedProduct.id})
-          </Typography>
           <Box>
             <ProductItem pro={selectedProduct} />
           </Box>
