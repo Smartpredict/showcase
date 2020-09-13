@@ -12,8 +12,8 @@ import Axios from "axios";
 import { Box, Grid, LinearProgress } from "@material-ui/core";
 import ProductItem from "../ProductItem/ProductItem";
 
-const API_URL = "https://api.smartpredict.ai/services/5f33a91c289149c1f569b364";
-const token = "SP_API_TOKEN";
+const API_URL = "https://api.smartpredict.ai/services/5f1fc3d5289149c1f569b233";
+const publicKey = "NjEzYWU0NDktZWQyOS00NmIzLWExZGQtYzE1MDUyMGEwNWUw";
 
 const styles = (theme) => ({
   root: {
@@ -25,6 +25,9 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+  dialog: {
+    width: "60%",
   },
 });
 
@@ -70,7 +73,7 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
         input: {
           data: { productId: selectedProduct.id },
         },
-        access_token: token,
+        access_token: publicKey,
       })
         .then(({ data }) => {
           let result = data && data.output ? JSON.parse(data.output) : [];
@@ -108,6 +111,7 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        // className={classes.dialog}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Similar product
