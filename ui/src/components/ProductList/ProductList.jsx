@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Axios from "axios";
 import ProductItem from "./ProductItem/ProductItem";
 import RecDialog from "./RecommandationDialog/RecommandationDialog";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import { Typography } from "@material-ui/core";
 const API_URL = "https://api.smartpredict.ai/services/5f217ce4289149c1f569b293";
 const publicKey = "NWI4ODI1MDUtNmYwZi00ZjFmLWIyMjEtODIxOWMyOGNmOTRl"; // process.env.PRODUCT_LIST_API_TOKEN;
 
@@ -68,6 +68,17 @@ export default function MediaCard() {
 
   return (
     <Grid container justify="center">
+      <Typography variant="subtitle1" gutterBottom style={{ marginBottom: 50 }}>
+        This demo shows how to use SmartPredict to develop and deploy a similar
+        product recommandation based on NLP & Deep Learning in serverless manner
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom style={{ marginBottom: 50 }}>
+        The flowchart project is in SmartPredict, and the repo is{" "}
+        <a href="">https://github.com/Smartpredict/showcase/</a>
+      </Typography>
+      <Typography variant="overline" gutterBottom style={{ marginBottom: 50 }}>
+        Just click on "view" button to see it in action!
+      </Typography>
       {loading ? (
         <Grid item md={12}>
           <Grid container spacing={1}>
