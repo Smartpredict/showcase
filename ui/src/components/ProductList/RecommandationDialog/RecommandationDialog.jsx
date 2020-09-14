@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
@@ -111,7 +112,7 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        // className={classes.dialog}
+        scroll="body"
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Similar product
@@ -122,7 +123,33 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
           </Box>
           <Typography gutterBottom>Similar products</Typography>
           <Box>
-            {loading && <LinearProgress variant="indeterminate" />}
+            {loading ? (
+              <Grid item md={12}>
+                <Typography gutterBottom color="secondary">
+                  Compute similar products from SmartPredict....
+                </Typography>
+                <Grid container spacing={1}>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                  <Grid item md={4}>
+                    <Skeleton height={200} variant="rect" />
+                  </Grid>
+                </Grid>
+              </Grid>
+            ) : null}
             <Grid container spacing={1}>
               {products.map((pro) => {
                 return (
@@ -134,11 +161,6 @@ export default function CustomizedDialogs({ open, setOpen, selectedProduct }) {
             </Grid>
           </Box>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

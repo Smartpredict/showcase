@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import Grid from "@material-ui/core/Grid";
 import Axios from "axios";
@@ -23,6 +24,8 @@ export default function MediaCard() {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [openDiag, setOpenDiag] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [selectedProduct, setSelectedProduct] = useState({});
   const openDialog = (item) => {
     setOpenDiag(true);
@@ -56,6 +59,7 @@ export default function MediaCard() {
         });
 
         setProducts(result);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -64,8 +68,29 @@ export default function MediaCard() {
 
   return (
     <Grid container justify="center">
-      {!products.length || products.length === 0 ? (
-        <LinearProgress variant="indeterminate" />
+      {loading ? (
+        <Grid item md={12}>
+          <Grid container spacing={1}>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+            <Grid item md={4}>
+              <Skeleton height={400} variant="rect" />
+            </Grid>
+          </Grid>
+        </Grid>
       ) : null}
       <Grid item md={12}>
         <Grid container spacing={1}>
