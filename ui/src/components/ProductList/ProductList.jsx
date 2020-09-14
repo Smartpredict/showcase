@@ -74,7 +74,7 @@ export default function MediaCard() {
       </Typography>
       <Typography variant="subtitle1" gutterBottom style={{ marginBottom: 50 }}>
         The flowchart project is in SmartPredict, and the repo is{" "}
-        <a href="">https://github.com/Smartpredict/showcase/</a>
+        <a href="https://github.com/Smartpredict/showcase/"> HERE</a>
       </Typography>
       <Typography variant="overline" gutterBottom style={{ marginBottom: 50 }}>
         Just click on "view" button to see it in action!
