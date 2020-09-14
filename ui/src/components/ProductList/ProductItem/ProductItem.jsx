@@ -29,7 +29,7 @@ export default function MediaCard({ pro, onClick }) {
           title={pro.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="subtitle1">
+          <Typography gutterBottom variant="subtitle1" noWrap>
             {pro.name} - {pro.price} $
           </Typography>
         </CardContent>
