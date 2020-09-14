@@ -67,66 +67,79 @@ export default function MediaCard() {
   }, []);
 
   return (
-    <Grid container justify="center">
-      <Typography variant="subtitle1" gutterBottom style={{ marginBottom: 50 }}>
-        This demo shows how to use SmartPredict to develop and deploy a similar
-        product recommandation based on NLP & Deep Learning in serverless manner
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom style={{ marginBottom: 50 }}>
-        The flowchart project is in SmartPredict, and the repo is{" "}
-        <a href="https://github.com/Smartpredict/showcase/"> HERE</a>
-      </Typography>
-      <Typography variant="overline" gutterBottom style={{ marginBottom: 50 }}>
-        Just click on "view" button to see it in action!
-      </Typography>
-      {loading ? (
-        <Grid item md={12}>
-          <Grid container spacing={1}>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
-            </Grid>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
-            </Grid>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
-            </Grid>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
-            </Grid>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
-            </Grid>
-            <Grid item md={4}>
-              <Skeleton height={400} variant="rect" />
+    <div>
+      <div>
+        <Typography variant="subtitle1" gutterBottom>
+          This demo shows how to use SmartPredict to develop and deploy a
+          similar product recommandation based on NLP & Deep Learning in
+          serverless manner
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="subtitle1" gutterBottom>
+          The flowchart project is in SmartPredict, and the repo is{" "}
+          <a href="https://github.com/Smartpredict/showcase/"> HERE</a>
+        </Typography>
+      </div>
+      <div>
+        <Typography
+          variant="overline"
+          gutterBottom
+          style={{ marginBottom: 50 }}
+        >
+          Just click on "view" button to see it in action!
+        </Typography>
+      </div>
+      <Grid container justify="center">
+        {loading ? (
+          <Grid item md={12}>
+            <Grid container spacing={1}>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton height={400} variant="rect" />
+              </Grid>
             </Grid>
           </Grid>
+        ) : null}
+        <Grid item md={12}>
+          <Grid container spacing={1}>
+            {products.map((pro) => {
+              return (
+                <Grid item md={4}>
+                  <ProductItem
+                    pro={pro}
+                    key={pro.id}
+                    onClick={() => {
+                      openDialog(pro);
+                    }}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
-      ) : null}
-      <Grid item md={12}>
-        <Grid container spacing={1}>
-          {products.map((pro) => {
-            return (
-              <Grid item md={4}>
-                <ProductItem
-                  pro={pro}
-                  key={pro.id}
-                  onClick={() => {
-                    openDialog(pro);
-                  }}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
+        {openDiag && selectedProduct && selectedProduct.id && (
+          <RecDialog
+            open={openDiag}
+            setOpen={closeDialog}
+            selectedProduct={selectedProduct}
+          />
+        )}
       </Grid>
-      {openDiag && selectedProduct && selectedProduct.id && (
-        <RecDialog
-          open={openDiag}
-          setOpen={closeDialog}
-          selectedProduct={selectedProduct}
-        />
-      )}
-    </Grid>
+    </div>
   );
 }
