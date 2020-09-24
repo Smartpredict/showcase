@@ -22,16 +22,24 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
 }));
-const columns = ["id", "content"];
 const options = {
   filterType: "checkbox",
 };
-const data = [
-  ["mail_1", "Test email 1"],
-  ["mail_2", "Test email 2"],
-];
+
 export default function Index({ handleChange, input }) {
   const classes = useStyles();
+
+  const oneMailRow = input.mails ? input.mails[0] : {};
+  const columns = Object.keys(oneMailRow);
+  let data = [];
+  if (input.mails) {
+    data = input.mails.map((m) => {
+      const keys = Object.keys(m);
+      let row = keys.map((k) => m[k]);
+
+      return row;
+    });
+  }
   const handleValueChange = (e) => {
     handleChange(e);
   };
@@ -41,7 +49,7 @@ export default function Index({ handleChange, input }) {
         <form className={classes.root} noValidate autoComplete="off">
           <Box className={classes.box}>
             <TextField
-              label="Url projet SP"
+              label="SP Project URL"
               name="project"
               value={input.project}
               onChange={handleValueChange}
@@ -61,7 +69,6 @@ export default function Index({ handleChange, input }) {
             <FormControl component="fieldset">
               <FormLabel component="legend">Input mode</FormLabel>
               <RadioGroup
-                aria-label="gender"
                 name="mode"
                 value={input.mode}
                 onChange={handleValueChange}
