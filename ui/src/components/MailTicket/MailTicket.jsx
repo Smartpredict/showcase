@@ -66,6 +66,8 @@ export default function Index() {
 
   // Process inference function
   const fireInference = () => {
+    setOutput({ ...output, error: false });
+
     let inferenceInput = input.selectedRows.map((r) => input.mails[r]);
     if (input.mode === "input") {
       inferenceInput = [{ id: "input", mail: input.emailManualInput }];
@@ -89,7 +91,10 @@ export default function Index() {
         setOutput({ ...output, predictions: result });
       })
       .catch((error) => {
+        console.log("Misy error ve", error);
+
         setPredictionLoading(false);
+        setOutput({ ...output, predictions: [], error: true });
 
         console.error(error);
       });
@@ -116,6 +121,7 @@ export default function Index() {
               <InferenceResult
                 predictionLoading={predictionLoading}
                 predictions={output.predictions}
+                error={output.error === true}
               />
             </Box>
           </Grid>
