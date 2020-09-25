@@ -68,7 +68,7 @@ export default function Index() {
   const fireInference = () => {
     let inferenceInput = input.selectedRows.map((r) => input.mails[r]);
     inferenceInput = inferenceInput.map((i) => ({ id: i.id, mail: i.mail }));
-
+    setPredictionLoading(true);
     // Fire inference from smartpredict
     // Project url
     Axios.post(input.project, {
@@ -79,12 +79,14 @@ export default function Index() {
       access_token: input.token,
     })
       .then(({ data }) => {
-        console.log("Data output", data);
+        setPredictionLoading(false);
 
         let result = data && data.output ? data.output.predictions : [];
         setOutput({ ...output, predictions: result });
       })
       .catch((error) => {
+        setPredictionLoading(false);
+
         console.error(error);
       });
   };
@@ -107,7 +109,10 @@ export default function Index() {
               onSendClick={fireInference}
             />
             <Box>
-              <InferenceResult predictions={output.predictions} />
+              <InferenceResult
+                predictionLoading={predictionLoading}
+                predictions={output.predictions}
+              />
             </Box>
           </Grid>
         </Grid>
