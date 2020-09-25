@@ -6,6 +6,8 @@ import Axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import InferenceBox from "./InferenceBox/InferenceBox";
 import InputBox from "./InputBox/InputBox";
+import InferenceResult from "./InferenceResult/InferenceResult";
+
 const API_URL = "https://api.smartpredict.ai/services/5f6c8ad1289149c1f569b906";
 const publicKey = "NGMyOWE2MzMtNDkzYy00M2U2LTlmYmYtYzYyZTE5ODI3MGQz";
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +35,9 @@ export default function Index() {
       process.env.GATSBY_TICKETING_DEFAULT_PROJECT_TOKEN ||
       "YjQwODlkNGYtNjYwYi00YjBkLWEwYzctZWJkNmM2ZWQyM2Iz",
   });
+
+  const [output, setOutput] = useState({ predictions: [] });
+  const [predictionLoading, setPredictionLoading] = useState(false);
 
   useEffect(() => {
     Axios.post(API_URL, {
@@ -68,15 +73,16 @@ export default function Index() {
     // Project url
     Axios.post(input.project, {
       input: {
-        data: { mails: inferenceInput, model: input.model },
+        mails: inferenceInput,
+        model: input.model,
       },
       access_token: input.token,
     })
       .then(({ data }) => {
         console.log("Data output", data);
 
-        //let result = data && data.output ? data.output.samples : [];
-        //setInput({ ...input, result: result });
+        let result = data && data.output ? data.output.predictions : [];
+        setOutput({ ...output, predictions: result });
       })
       .catch((error) => {
         console.error(error);
@@ -100,6 +106,9 @@ export default function Index() {
               handleChange={handleValueChange}
               onSendClick={fireInference}
             />
+            <Box>
+              <InferenceResult predictions={output.predictions} />
+            </Box>
           </Grid>
         </Grid>
       </Container>
