@@ -81,9 +81,9 @@ export default function InferenceResults({ predictions, predictionLoading }) {
                             <ListItem>
                               <ListItemText
                                 primary={oneClass.class_name}
-                                secondary={(
+                                secondary={`${(
                                   oneClass.score.toFixed(3) * 100
-                                ).toFixed(2)}
+                                ).toFixed(2)}%`}
                               />
                             </ListItem>
                           );
