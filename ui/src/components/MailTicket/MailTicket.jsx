@@ -67,7 +67,11 @@ export default function Index() {
   // Process inference function
   const fireInference = () => {
     let inferenceInput = input.selectedRows.map((r) => input.mails[r]);
-    inferenceInput = inferenceInput.map((i) => ({ id: i.id, mail: i.mail }));
+    if (input.mode) {
+      inferenceInput = [{ id: "input", mail: input.emailManualInput }];
+    } else {
+      inferenceInput = inferenceInput.map((i) => ({ id: i.id, mail: i.mail }));
+    }
     setPredictionLoading(true);
     // Fire inference from smartpredict
     // Project url
