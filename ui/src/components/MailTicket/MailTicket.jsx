@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Axios from "axios";
-
+import Grid from "@material-ui/core/Grid";
 import InferenceBox from "./InferenceBox/InferenceBox";
 import InputBox from "./InputBox/InputBox";
 const API_URL = "https://api.smartpredict.ai/services/5f6c8ad1289149c1f569b906";
@@ -22,7 +22,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Index() {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState({
+    model: "XGB",
+    mode: "table",
+    selectedRows: [],
+    project:
+      process.env.GATSBY_TICKETING_DEFAULT_PROJECT_URL ||
+      "https://api.smartpredict.ai/services/5f6d8c21289149c1f569b9a9",
+    token:
+      process.env.GATSBY_TICKETING_DEFAULT_PROJECT_TOKEN ||
+      "YjQwODlkNGYtNjYwYi00YjBkLWEwYzctZWJkNmM2ZWQyM2Iz",
+  });
 
   useEffect(() => {
     Axios.post(API_URL, {
@@ -42,23 +52,56 @@ export default function Index() {
   const handleValueChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  // Table row selection
   const onRowSelection = (arr) => {
+    // [1, 2]
     setInput({ ...input, selectedRows: arr });
+  };
+
+  // Process inference function
+  const fireInference = () => {
+    let inferenceInput = input.selectedRows.map((r) => input.mails[r]);
+    inferenceInput = inferenceInput.map((i) => ({ id: i.id, mail: i.mail }));
+
+    // Fire inference from smartpredict
+    // Project url
+    Axios.post(input.project, {
+      input: {
+        data: { mails: inferenceInput, model: input.model },
+      },
+      access_token: input.token,
+    })
+      .then(({ data }) => {
+        console.log("Data output", data);
+
+        //let result = data && data.output ? data.output.samples : [];
+        //setInput({ ...input, result: result });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div>
       <Box marginBottom={4} />
-      <Container maxWidth="md">
-        <Box marginBottom={2}>
-          <InputBox
-            handleChange={handleValueChange}
-            input={input}
-            onRowSelection={onRowSelection}
-          />
-        </Box>
-        <Box>
-          <InferenceBox input={input} handleChange={handleValueChange} />
-        </Box>
+      <Container maxWidth="lg">
+        <Grid container spacing={1}>
+          <Grid item md={6}>
+            <InputBox
+              handleChange={handleValueChange}
+              input={input}
+              onRowSelection={onRowSelection}
+            />
+          </Grid>
+          <Grid item md={4}>
+            <InferenceBox
+              input={input}
+              handleChange={handleValueChange}
+              onSendClick={fireInference}
+            />
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );
