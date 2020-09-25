@@ -22,16 +22,28 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
 }));
-const options = {
-  filterType: "checkbox",
-};
 
-export default function Index({ handleChange, input }) {
+export default function Index({ handleChange, input, onRowSelection }) {
   const classes = useStyles();
 
   const oneMailRow = input.mails ? input.mails[0] : {};
   const columns = Object.keys(oneMailRow);
   let data = [];
+
+  const options = {
+    filterType: "checkbox",
+    download: false,
+    print: false,
+    // Selected email rows
+    rowsSelected: input.selectedRows,
+    onRowSelectionChange: (
+      currentRowsSelected,
+      allRowsSelected,
+      rowsSelected
+    ) => {
+      onRowSelection(rowsSelected);
+    },
+  };
   if (input.mails) {
     data = input.mails.map((m) => {
       const keys = Object.keys(m);

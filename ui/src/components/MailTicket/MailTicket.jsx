@@ -42,12 +42,19 @@ export default function Index() {
   const handleValueChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  const onRowSelection = (arr) => {
+    setInput({ ...input, selectedRows: arr });
+  };
   return (
     <div>
       <Box marginBottom={4} />
       <Container maxWidth="md">
         <Box marginBottom={2}>
-          <InputBox handleChange={handleValueChange} input={input} />
+          <InputBox
+            handleChange={handleValueChange}
+            input={input}
+            onRowSelection={onRowSelection}
+          />
         </Box>
         <Box>
           <InferenceBox input={input} handleChange={handleValueChange} />
