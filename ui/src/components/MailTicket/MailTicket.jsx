@@ -67,7 +67,7 @@ export default function Index() {
   // Process inference function
   const fireInference = () => {
     let inferenceInput = input.selectedRows.map((r) => input.mails[r]);
-    if (input.mode) {
+    if (input.mode === "input") {
       inferenceInput = [{ id: "input", mail: input.emailManualInput }];
     } else {
       inferenceInput = inferenceInput.map((i) => ({ id: i.id, mail: i.mail }));
