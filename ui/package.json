@@ -12,6 +12,7 @@
     "gatsby": "latest",
     "gatsby-plugin-material-ui": "latest",
     "gatsby-plugin-react-helmet": "latest",
+    "lodash": "^4.17.20",
     "mui-datatables": "^3.4.1",
     "react": "latest",
     "react-dom": "latest",
