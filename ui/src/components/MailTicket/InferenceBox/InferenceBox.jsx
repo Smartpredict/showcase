@@ -5,6 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles({
   root: {
@@ -15,26 +17,35 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: 8,
+    //  display: "flex",
   },
 });
 
-export default function InferenceBox({ handleChange, input }) {
+export default function InferenceBox({ handleChange, input, onSendClick }) {
   const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Model</InputLabel>
-        <Select
-          value={input.model}
-          name="model"
-          onChange={handleChange}
-          fullWidth
-        >
-          <MenuItem value="xgboost">XGBoost</MenuItem>
-          <MenuItem value="random-forest">Random Forest</MenuItem>
-        </Select>
-      </FormControl>
+      <Box marginRight={2} flexGrow={1}>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-simple-select-label">Model</InputLabel>
+          <Select
+            value={input.model}
+            name="model"
+            onChange={handleChange}
+            fullWidth
+          >
+            <MenuItem value="XGB">XGB</MenuItem>
+            <MenuItem value="RF">Random Forest</MenuItem>
+            <MenuItem value="SVM">SVM</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box flexGrow={1} marginTop={2}>
+        <Button fullWidth variant="contained" onClick={onSendClick}>
+          Process
+        </Button>
+      </Box>
     </Paper>
   );
 }
