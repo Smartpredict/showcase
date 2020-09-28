@@ -26,7 +26,7 @@ export default function Index() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            SmartPredict Showcase
+            DFI Ticketing
           </Typography>
         </Toolbar>
       </AppBar>
