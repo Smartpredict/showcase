@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MailTicket from "../components/MailTicket/MailTicket";
-
+import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -31,9 +31,11 @@ export default function Index() {
         </Toolbar>
       </AppBar>
       <Box marginBottom={4} />
-      <Container maxWidth="xl">
-        <MailTicket />
-      </Container>
+      <Grid container justify="center">
+        <Grid item md={11} sm={12} lg={11}>
+          <MailTicket />
+        </Grid>
+      </Grid>
     </div>
   );
 }

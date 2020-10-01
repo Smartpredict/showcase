@@ -35,9 +35,9 @@ export default function InferenceBox({ handleChange, input, onSendClick }) {
             onChange={handleChange}
             fullWidth
           >
-            <MenuItem value="XGB">XGB</MenuItem>
-            <MenuItem value="RF">Random Forest</MenuItem>
-            <MenuItem value="SVM">SVM</MenuItem>
+            <MenuItem value={1}>XGB</MenuItem>
+            <MenuItem value={2}>Random Forest</MenuItem>
+            <MenuItem value={3}>SVM</MenuItem>
           </Select>
         </FormControl>
       </Box>
