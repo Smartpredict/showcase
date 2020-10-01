@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    //minWidth: 275,
   },
   first: {
     backgroundColor: "#4aedc4",
@@ -44,15 +44,23 @@ export default function SimilarTickets({ similarTickets }) {
               >
                 <CardContent>
                   <Box>
-                    <Chip label={sim.equipe} color="secondary" />:
-                    <Typography variant="overline">
-                      {" "}
-                      Score: {sim.score * 100} %
-                    </Typography>
+                    <Box>
+                      <Chip label={sim.equipe} color="secondary" />:
+                      <Typography variant="overline">
+                        {" "}
+                        Score: {sim.score * 100} %
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        component="p"
+                        style={{ textOverflow: "" }}
+                      >
+                        {sim.mail}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Typography variant="body2" component="p">
-                    {sim.mail}
-                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
