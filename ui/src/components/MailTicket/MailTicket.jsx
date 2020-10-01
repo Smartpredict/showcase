@@ -25,20 +25,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Index() {
   const [input, setInput] = useState({
-    model: "XGB",
+    model: 1,
     mode: "table",
     selectedRows: [],
     project:
       process.env.GATSBY_TICKETING_DEFAULT_PROJECT_URL ||
-      "https://api.smartpredict.ai/services/5f6d8c21289149c1f569b9a9",
+      "https://api.smartpredict.ai/services/5f71bf65289149c1f569ba80",
     token:
       process.env.GATSBY_TICKETING_DEFAULT_PROJECT_TOKEN ||
-      "YjQwODlkNGYtNjYwYi00YjBkLWEwYzctZWJkNmM2ZWQyM2Iz",
+      "YTc1NWE5MWMtYzkyYS00ZGU3LWJiY2YtNGJiOGU4YjcyMTJk",
   });
 
-  const [output, setOutput] = useState({ predictions: [] });
+  const [output, setOutput] = useState({ predictions: [], similarTickets: {} });
   const [predictionLoading, setPredictionLoading] = useState(false);
-
+  const [loadingMail, setLoadingMail] = useState(true);
   useEffect(() => {
     Axios.post(API_URL, {
       input: {
@@ -49,9 +49,11 @@ export default function Index() {
       .then(({ data }) => {
         let result = data && data.output ? data.output.samples : [];
         setInput({ ...input, mails: result });
+        setLoadingMail(false);
       })
       .catch((error) => {
         console.error(error);
+        setLoadingMail(false);
       });
   }, []);
   const handleValueChange = (e) => {
@@ -88,7 +90,8 @@ export default function Index() {
         setPredictionLoading(false);
 
         let result = data && data.output ? data.output.predictions : [];
-        setOutput({ ...output, predictions: result });
+        let sim = data && data.output ? data.output.similar_tickets : [];
+        setOutput({ ...output, predictions: result, similarTickets: sim });
       })
       .catch((error) => {
         console.log("Misy error ve", error);
@@ -109,6 +112,7 @@ export default function Index() {
               handleChange={handleValueChange}
               input={input}
               onRowSelection={onRowSelection}
+              loadingMail={loadingMail}
             />
           </Grid>
           <Grid item md={4}>
@@ -121,6 +125,7 @@ export default function Index() {
               <InferenceResult
                 predictionLoading={predictionLoading}
                 predictions={output.predictions}
+                similarTickets={output.similarTickets}
                 error={output.error === true}
               />
             </Box>

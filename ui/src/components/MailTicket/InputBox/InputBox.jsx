@@ -9,6 +9,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import MUIDataTable from "mui-datatables";
+import Grid from "@material-ui/core/Grid";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Index({ handleChange, input, onRowSelection }) {
+export default function Index({
+  handleChange,
+  input,
+  onRowSelection,
+  loadingMail,
+}) {
   const classes = useStyles();
 
   const oneMailRow = input.mails ? input.mails[0] : {};
@@ -100,12 +107,29 @@ export default function Index({ handleChange, input, onRowSelection }) {
           </Box>
           {input.mode === "table" ? (
             <Box>
-              <MUIDataTable
-                title={"Employee List"}
-                data={data}
-                columns={columns}
-                options={options}
-              />
+              {loadingMail === true ? (
+                <Grid container spacing={1}>
+                  <Grid item md={12}>
+                    <Skeleton height={50} variant="rect" />
+                  </Grid>
+                  <Grid item md={12}>
+                    <Skeleton height={50} variant="rect" />
+                  </Grid>
+                  <Grid item md={12}>
+                    <Skeleton height={50} variant="rect" />
+                  </Grid>
+                  <Grid item md={12}>
+                    <Skeleton height={50} variant="rect" />
+                  </Grid>
+                </Grid>
+              ) : (
+                <MUIDataTable
+                  title={"Employee List"}
+                  data={data}
+                  columns={columns}
+                  options={options}
+                />
+              )}
             </Box>
           ) : (
             <Box>
