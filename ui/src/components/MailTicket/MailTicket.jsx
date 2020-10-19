@@ -8,8 +8,8 @@ import InferenceBox from "./InferenceBox/InferenceBox";
 import InputBox from "./InputBox/InputBox";
 import InferenceResult from "./InferenceResult/InferenceResult";
 
-const API_URL = "https://api.smartpredict.ai/services/5f6c8ad1289149c1f569b906";
-const publicKey = "NGMyOWE2MzMtNDkzYy00M2U2LTlmYmYtYzYyZTE5ODI3MGQz";
+const API_URL = "https://api.smartpredict.ai/services/5f71b7f0289149c1f569ba5d";
+const publicKey = "ZWZmMTRmNTMtNDIyOC00Yjc4LTlmN2ItZGFkMjU2NzBlNzUz";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -30,10 +30,10 @@ export default function Index() {
     selectedRows: [],
     project:
       process.env.GATSBY_TICKETING_DEFAULT_PROJECT_URL ||
-      "https://api.smartpredict.ai/services/5f71bf65289149c1f569ba80",
+      "https://api.smartpredict.ai/services/5f8bf1fa289149c1f569bc0a",
     token:
       process.env.GATSBY_TICKETING_DEFAULT_PROJECT_TOKEN ||
-      "YTc1NWE5MWMtYzkyYS00ZGU3LWJiY2YtNGJiOGU4YjcyMTJk",
+      "Yzc2ZTA4NjItYTQ4My00ZTRmLWFkNDAtNjI4OGI4MGIxYjRl",
   });
 
   const [output, setOutput] = useState({ predictions: [], similarTickets: {} });
